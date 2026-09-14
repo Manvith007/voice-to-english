@@ -49,4 +49,4 @@ The transliteration pipeline tries, in order:
 
 ## 📝 License
 
-Free to use. Built with ❤️ in Antigravity.
+Free to use. Built with ❤️ by Manvith Chowdary.
