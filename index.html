@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice → English Text</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <span class="material-icons-round logo-icon">record_voice_over</span>
+                <h1>VoiceToText</h1>
+            </div>
+            <p class="tagline">Speak in any language → Get it in English letters</p>
+            <p class="tagline-sub">Telugu, Hindi, Kannada, Tamil… → English script for messaging</p>
+        </header>
+
+        <!-- Language Selector -->
+        <div class="language-bar">
+            <div class="lang-select-wrapper">
+                <span class="material-icons-round">language</span>
+                <select id="languageSelect">
+                    <optgroup label="─── Indian Languages ───">
+                        <option value="te-IN" selected>🇮🇳 Telugu</option>
+                        <option value="hi-IN">🇮🇳 Hindi</option>
+                        <option value="ta-IN">🇮🇳 Tamil</option>
+                        <option value="kn-IN">🇮🇳 Kannada</option>
+                        <option value="ml-IN">🇮🇳 Malayalam</option>
+                        <option value="bn-IN">🇮🇳 Bengali</option>
+                        <option value="gu-IN">🇮🇳 Gujarati</option>
+                        <option value="mr-IN">🇮🇳 Marathi</option>
+                        <option value="pa-IN">🇮🇳 Punjabi</option>
+                        <option value="ur-IN">🇮🇳 Urdu</option>
+                        <option value="or-IN">🇮🇳 Odia</option>
+                        <option value="as-IN">🇮🇳 Assamese</option>
+                        <option value="ne-NP">🇳🇵 Nepali</option>
+                        <option value="si-LK">🇱🇰 Sinhala</option>
+                    </optgroup>
+                    <optgroup label="─── Asian Languages ───">
+                        <option value="zh-CN">🇨🇳 Chinese (Mandarin)</option>
+                        <option value="ja-JP">🇯🇵 Japanese</option>
+                        <option value="ko-KR">🇰🇷 Korean</option>
+                        <option value="th-TH">🇹🇭 Thai</option>
+                        <option value="vi-VN">🇻🇳 Vietnamese</option>
+                        <option value="id-ID">🇮🇩 Indonesian</option>
+                        <option value="ms-MY">🇲🇾 Malay</option>
+                        <option value="fil-PH">🇵🇭 Filipino</option>
+                        <option value="my-MM">🇲🇲 Burmese</option>
+                        <option value="km-KH">🇰🇭 Khmer</option>
+                    </optgroup>
+                    <optgroup label="─── European Languages ───">
+                        <option value="en-US">🇺🇸 English (US)</option>
+                        <option value="en-GB">🇬🇧 English (UK)</option>
+                        <option value="es-ES">🇪🇸 Spanish</option>
+                        <option value="fr-FR">🇫🇷 French</option>
+                        <option value="de-DE">🇩🇪 German</option>
+                        <option value="it-IT">🇮🇹 Italian</option>
+                        <option value="pt-BR">🇧🇷 Portuguese</option>
+                        <option value="ru-RU">🇷🇺 Russian</option>
+                        <option value="nl-NL">🇳🇱 Dutch</option>
+                        <option value="pl-PL">🇵🇱 Polish</option>
+                        <option value="uk-UA">🇺🇦 Ukrainian</option>
+                        <option value="el-GR">🇬🇷 Greek</option>
+                        <option value="sv-SE">🇸🇪 Swedish</option>
+                        <option value="da-DK">🇩🇰 Danish</option>
+                        <option value="fi-FI">🇫🇮 Finnish</option>
+                        <option value="no-NO">🇳🇴 Norwegian</option>
+                        <option value="cs-CZ">🇨🇿 Czech</option>
+                        <option value="ro-RO">🇷🇴 Romanian</option>
+                        <option value="hu-HU">🇭🇺 Hungarian</option>
+                        <option value="tr-TR">🇹🇷 Turkish</option>
+                    </optgroup>
+                    <optgroup label="─── Middle Eastern Languages ───">
+                        <option value="ar-SA">🇸🇦 Arabic</option>
+                        <option value="he-IL">🇮🇱 Hebrew</option>
+                        <option value="fa-IR">🇮🇷 Persian (Farsi)</option>
+                    </optgroup>
+                    <optgroup label="─── African Languages ───">
+                        <option value="sw-KE">🇰🇪 Swahili</option>
+                        <option value="am-ET">🇪🇹 Amharic</option>
+                        <option value="zu-ZA">🇿🇦 Zulu</option>
+                        <option value="af-ZA">🇿🇦 Afrikaans</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="arrow-indicator">
+                <span class="material-icons-round">arrow_forward</span>
+            </div>
+            <div class="target-lang">
+                <span class="material-icons-round">abc</span>
+                <span>English Letters</span>
+            </div>
+        </div>
+
+        <!-- Mic Button -->
+        <div class="mic-section">
+            <button id="micBtn" class="mic-button" aria-label="Start recording">
+                <div class="mic-ripple"></div>
+                <div class="mic-ripple ripple-2"></div>
+                <div class="mic-ripple ripple-3"></div>
+                <span class="material-icons-round mic-icon">mic</span>
+            </button>
+            <p id="micStatus" class="mic-status">Tap to start speaking</p>
+        </div>
+
+        <!-- English Text Output (Main output — the romanized text) -->
+        <div class="panel english-panel" id="englishPanel">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <span class="material-icons-round">text_fields</span>
+                    <span>English Text</span>
+                    <span class="detected-lang" id="detectedLang"></span>
+                </div>
+                <button class="icon-btn" id="copyEnglishBtn" title="Copy English text">
+                    <span class="material-icons-round">content_copy</span>
+                </button>
+            </div>
+            <div class="panel-body english-body">
+                <p id="englishText" class="text-content english-text placeholder-text">Your words in English letters will appear here…</p>
+                <div id="processingSpinner" class="translating-spinner hidden">
+                    <div class="spinner"></div>
+                    <span>Converting...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Big Copy Button -->
+        <button id="bigCopyBtn" class="big-copy-btn hidden">
+            <span class="material-icons-round">content_copy</span>
+            <span>Copy & Paste in WhatsApp / Telegram</span>
+        </button>
+
+        <!-- Original Script Panel (secondary, collapsed) -->
+        <details class="panel original-panel" id="originalPanel">
+            <summary class="panel-header clickable">
+                <div class="panel-title">
+                    <span class="material-icons-round">translate</span>
+                    <span>Original Script</span>
+                </div>
+                <span class="material-icons-round expand-icon">expand_more</span>
+            </summary>
+            <div class="panel-body">
+                <p id="originalText" class="text-content original-script placeholder-text">Native script text will appear here…</p>
+            </div>
+        </details>
+
+        <!-- How it works -->
+        <div class="how-it-works">
+            <h3><span class="material-icons-round">lightbulb</span> How it works</h3>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-num">1</span>
+                    <span>Select your language</span>
+                </div>
+                <div class="step">
+                    <span class="step-num">2</span>
+                    <span>Tap mic & speak</span>
+                </div>
+                <div class="step">
+                    <span class="step-num">3</span>
+                    <span>Get English text</span>
+                </div>
+                <div class="step">
+                    <span class="step-num">4</span>
+                    <span>Copy & paste!</span>
+                </div>
+            </div>
+            <div class="example-box">
+                <p class="example-label">Example:</p>
+                <p class="example-native">🎙️ You speak: "చెప్పు మావ ఏంటి సంగతి"</p>
+                <p class="example-english">📝 You get: <strong>"cheppu maava enti sangathi"</strong></p>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div class="history-section" id="historySection">
+            <div class="history-header">
+                <div class="panel-title">
+                    <span class="material-icons-round">history</span>
+                    <span>Recent Messages</span>
+                </div>
+                <button class="icon-btn danger" id="clearHistoryBtn" title="Clear history">
+                    <span class="material-icons-round">delete_sweep</span>
+                </button>
+            </div>
+            <div id="historyList" class="history-list">
+                <p class="empty-history">No messages yet. Start speaking!</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Works best in <strong>Chrome</strong> or <strong>Edge</strong> • Speak clearly for best results</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <span class="material-icons-round">check_circle</span>
+        <span id="toastMsg">Copied!</span>
+    </div>
+
+    <!-- Browser Not Supported Overlay -->
+    <div id="unsupportedOverlay" class="overlay hidden">
+        <div class="overlay-content">
+            <span class="material-icons-round overlay-icon">error_outline</span>
+            <h2>Browser Not Supported</h2>
+            <p>Speech recognition requires <strong>Google Chrome</strong> or <strong>Microsoft Edge</strong>. Please open this page in one of those browsers.</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
