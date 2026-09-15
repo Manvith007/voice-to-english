@@ -39,6 +39,10 @@ The transliteration pipeline tries, in order:
 2. **Aksharamukha API** (dedicated Indic transliteration service)
 3. **Built-in offline character mapping** (Telugu, Hindi, Kannada, Tamil, Malayalam fallback)
 
+## 🎙️ Microphone not working?
+
+Check the full device-by-device permissions guide → [**MIC-PERMISSIONS.md**](MIC-PERMISSIONS.md)
+
 ## 📁 Project structure
 
 ```
